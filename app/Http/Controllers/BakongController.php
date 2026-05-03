@@ -91,6 +91,7 @@ class BakongController extends Controller
                 'paid'      => true,
                 'message'   => 'Payment confirmed!',
                 'reference' => $payment->reference,
+                'success_url' => route('payment.success', ['payment' => $payment->reference]),
             ]);
         }
 
@@ -115,6 +116,7 @@ class BakongController extends Controller
                 'paid'      => $paid,
                 'message'   => $paid ? 'Payment confirmed!' : 'Waiting...',
                 'reference' => $payment->reference,
+                'success_url' => route('payment.success', ['payment' => $payment->reference]),
             ]);
         } catch (\Exception $e) {
             \Log::error('Bakong error: ' . $e->getMessage());

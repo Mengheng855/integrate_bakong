@@ -82,6 +82,10 @@
                 body: JSON.stringify({ md5 })
             });
 
+            if (!res.ok) {
+                throw new Error(`Payment check failed with HTTP ${res.status}`);
+            }
+
             const json = await res.json();
             console.log('Poll result:', json); // debug in browser console
 
@@ -92,7 +96,7 @@
                 statusBox.textContent = '✅ Payment confirmed!';
 
                 setTimeout(() => {
-                    window.location.href = `/payment/${json.reference}/success`;
+                    window.location.href = json.success_url;
                 }, 1500);
             }
 
